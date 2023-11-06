@@ -1,76 +1,68 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Epic: POS & Inventory Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### User Story 1:
+As a super admin, I want to have a centralized platform to manage wholesalers, retailers, and their direct customers, so that I can efficiently oversee the entire system.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+#### Acceptance Criteria:
+1. The super admin should have access to an admin dashboard with role-based authentication.
+2. The dashboard should allow the super admin to manage user accounts, including wholesalers, retailers, and customers.
+3. The super admin should be able to view and update user details, such as contact information and access privileges.
+4. The dashboard should provide analytics and reporting features to track sales, inventory, and user activities.
 
-## Description
+#### Tasks:
+1. Design and develop an admin dashboard with role-based authentication.
+2. Implement user management functionalities, including account creation, update, and access control.
+3. Integrate analytics and reporting features to provide insights on sales, inventory, and user activities.
+4. Test and validate the admin dashboard to ensure its functionality and usability.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### User Story 2:
+As a wholesaler, I want a system that allows me to send products bought by retailers to their respective stores, ensuring accurate inventory management.
 
-## Installation
+#### Acceptance Criteria:
+1. The system should provide a user-friendly interface for the wholesaler to initiate product transfers to retailers.
+2. The wholesaler should be able to select specific products, quantities, and retailers for each transfer.
+3. Upon successful transfer, the system should update the inventory for both the wholesaler and the retailer.
+4. The retailer should receive a notification to confirm the incoming products and add them to their online store.
+5. If duplicate products exist, the system should increase the quantity instead of creating duplicates.
 
-```bash
-$ npm install
-```
+#### Tasks:
+1. Design and develop a user-friendly interface for the wholesaler to initiate product transfers.
+2. Implement inventory management logic to update stock levels for both the wholesaler and the retailer.
+3. Create a notification system to inform retailers about incoming products and enable them to confirm and add products to their online store.
+4. Test the product transfer functionality to ensure accurate inventory management.
 
-## Running the app
+### User Story 3:
+As a retailer, I want to have an inventory management system that allows me to perform CRUD operations on products and add regular customers to my online store.
 
-```bash
-# development
-$ npm run start
+#### Acceptance Criteria:
+1. The retailer should have a user-friendly interface to manage their product inventory.
+2. The interface should allow CRUD operations, enabling the retailer to add, update, and delete products.
+3. The retailer should be able to set their own prices for products.
+4. The system should provide a customer management feature, allowing the retailer to add regular customers to their online store.
+5. Customers should be able to make orders from the online store.
 
-# watch mode
-$ npm run start:dev
+#### Tasks:
+1. Design and develop a user-friendly interface for retailers to manage their product inventory.
+2. Implement CRUD operations for product management, including add, update, and delete functionalities.
+3. Enable retailers to set their own prices for products.
+4. Create a customer management feature for retailers to add regular customers to their online store.
+5. Develop order management functionalities for customers to make orders from the online store.
 
-# production mode
-$ npm run start:prod
+### User Story 4:
+As a customer, I want to have a mobile app that allows me to make orders from retailers' online stores and pick up the products later.
 
-# generate jwt secret
-$ node -e "console.log(require('crypto').randomBytes(256).toString('base64'));" 
-```
+#### Acceptance Criteria:
+1. The mobile app should have a user-friendly interface for customers to browse and order products.
+2. Customers should be able to authenticate using their username and phone number.
+3. The app should provide a list of stores available in the customer's region.
+4. Customers should be able to scan a QR code in-store to download the client mobile app and find the necessary store.
+5. The app should display all available products with their costs and relevant details for informed purchases.
 
-## Test
+#### Tasks:
+1. Design and develop a mobile app using React Native, TypeScript, Redux, and Tailwind CSS.
+2. Implement user authentication using username and phone number.
+3. Integrate location-based services to provide a list of stores available in the customer's region.
+4. Develop QR code scanning functionality to download the client mobile app and find the necessary store.
+5. Display products with relevant details and enable customers to make orders.
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+These user stories, acceptance criteria, and tasks cover the main features of the point of sale and inventory management system. Please note that these are high-level examples, and we need to adapt and refine them based on our specific requirements and business processes.

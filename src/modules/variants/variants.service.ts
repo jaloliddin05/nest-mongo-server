@@ -1,53 +1,53 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Variants, VariantsDocument } from './variants.schema';
-import { CreateVariantsDto } from './dto/create-variants.dto';
-import { UpdateVariantsDto } from './dto/update-variants.dto';
-import { Items, ItemsDocument } from '../items/items.schema';
+import { Variant, VariantDocument } from './variant.schema';
+import { CreateVariantDto } from './dto/create-variant.dto';
+import { UpdateVariantDto } from './dto/update-variant.dto';
+import { Product, ProductDocument } from '../products/product.schema';
 
 @Injectable()
 export class VariantsService {
   constructor(
-    @InjectModel(Variants?.name) private VariantsModel: Model<VariantsDocument>,
-    @InjectModel(Items?.name) private ItemsModel: Model<ItemsDocument>,
+    @InjectModel(Variant?.name) private VariantsModel: Model<VariantDocument>,
+    @InjectModel(Product?.name) private ProductsModel: Model<ProductDocument>,
   ) {}
 
   async create(
-    createVariantsDto: CreateVariantsDto,
-  ): Promise<VariantsDocument> {
-    const Items = await this.ItemsModel.findById(
-      createVariantsDto?.item_id,
+    createVariantDto: CreateVariantDto,
+  ): Promise<VariantDocument> {
+    const Product = await this.ProductsModel.findById(
+      createVariantDto?.productId,
     ).exec();
-    if (!Items) {
-      throw new BadRequestException('Items not found.');
+    if (!Product) {
+      throw new BadRequestException('Product not found.');
     }
-    const createdVariants = new this.VariantsModel(createVariantsDto);
-    Items?.variants.push(createdVariants);
+    const createdVariant = new this.VariantsModel(createVariantDto);
+    Product?.variants.push(createdVariant);
 
-    await createdVariants.save();
-    await Items.save();
-    return createdVariants;
+    await createdVariant.save();
+    await Product.save();
+    return createdVariant;
   }
 
-  async findAll(): Promise<VariantsDocument[]> {
+  async findAll(): Promise<VariantDocument[]> {
     return this.VariantsModel.find().exec();
   }
 
-  async findById(id: string): Promise<VariantsDocument> {
+  async findById(id: string): Promise<VariantDocument> {
     return this.VariantsModel.findById(id);
   }
 
   async update(
     id: string,
-    updateVariantsDto: UpdateVariantsDto,
-  ): Promise<VariantsDocument> {
-    return this.VariantsModel.findByIdAndUpdate(id, updateVariantsDto, {
+    updateVariantDto: UpdateVariantDto,
+  ): Promise<VariantDocument> {
+    return this.VariantsModel.findByIdAndUpdate(id, updateVariantDto, {
       new: true,
     }).exec();
   }
 
-  async remove(id: string): Promise<VariantsDocument> {
+  async remove(id: string): Promise<VariantDocument> {
     return this.VariantsModel.findByIdAndDelete(id).exec();
   }
 }

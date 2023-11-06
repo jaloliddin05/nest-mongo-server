@@ -1,36 +1,123 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
-import { CreateUserDto } from '../user/dto/create-user.dto';
+import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { AccessTokenGuard } from 'src/common/guards/acessToken.guard';
-import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
+import { AccessTokenGuard } from 'src/guards/acessToken.guard';
+import { InfobipService } from './send-sms/send-sms.service';
+import { RefreshTokenGuard } from 'src/guards/refreshToken.guard';
+import { SendSmsDto } from './dto/send-sms.dto';
+import {
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiOperation,
+} from '@nestjs/swagger';
+import { PassworgDto } from './dto/password.dto';
+import { SingUpUserDto } from '../users/dto/singup-user.dto';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+  ) { }
 
+  @ApiOperation({ summary: 'Method: Signup' })
+  @ApiOkResponse({
+    description: 'The user was created successfully',
+  })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Post('signup')
   signup(@Body() createUserDto: CreateUserDto) {
     return this.authService.signUp(createUserDto);
   }
 
+  @ApiOperation({ summary: 'Method: signin' })
+  @ApiOkResponse({
+    description: 'New access, refresh tokens have been saved.',
+  })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Post('signin')
   signin(@Body() data: AuthDto) {
     return this.authService.signIn(data);
   }
 
+
+  @ApiOperation({ summary: 'Method: create new user' })
+  @ApiOkResponse({
+    description: 'for merchant  createing new  employee',
+  })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @UseGuards(AccessTokenGuard)
+  @Post('user')
+  newUser(@Body() createUserDto: SingUpUserDto,@Req() req: Request) {
+    return this.authService.createUser(createUserDto,req.user['sub']);
+  }
+
+  @ApiOperation({ summary: 'Method: Checking user phone number' })
+  @ApiOkResponse({
+    description: 'When user will write a phone number this method will send sms to his phone to verify',
+  })
+  @ApiForbiddenResponse({ description: 'Number not found' })
+  @Post('send-sms')
+  async sendSMS(@Body() sendSmsDto: SendSmsDto) {
+    return await this.authService.sendSmsNumber(sendSmsDto)
+  }
+
+
+  @ApiOperation({ summary: 'Method: reset password' })
+  @ApiOkResponse({
+    description: 'This method will send sms link to set new password',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Post('pwdforgot')
+  async resetPassword(@Body() sendSmsDto: SendSmsDto) {
+    return this.authService.ResetPassword(sendSmsDto.phoneNumber);
+   
+  }
+
+  
+  @ApiOperation({ summary: 'Method:new password' })
+  @ApiOkResponse({
+    description: 'This method will send sms link to set new password',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Post('pwdreset')
+  async newPassword(@Body() passwordDot: PassworgDto, @Query('token') token: string) {
+    
+    return  await this.authService.NewPassword(token,passwordDot)
+  }
+
+  @ApiOperation({ summary: 'Method: logout' })
+  @ApiOkResponse({
+    description: 'The user was logged out successfully',
+  })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   logout(@Req() req: Request) {
     this.authService.logout(req.user['sub']);
   }
 
+
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
   refreshTokens(@Req() req: Request) {
     const userId = req.user['sub'];
-    const refreshToken = req.user['refresh_token'];
+    const refreshToken = req.user['refreshToken'];
     return this.authService.refreshTokens(userId, refreshToken);
+  }
+
+  @ApiOperation({ summary: 'Method:Geterate PinCode' })
+  @ApiOkResponse({
+    description: 'This method will return a pin code for the user',
+  })
+  @ApiForbiddenResponse({ description: 'not found' })
+  @Get('pincode')
+  async newPinCode() {
+
+    return await this.authService.sendPinCode()
   }
 }

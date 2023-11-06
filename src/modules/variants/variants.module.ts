@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ItemsModule } from '../items/items.module';
-import { Items, ItemsSchema } from '../items/items.schema';
+import { ProductsModule } from '../products/products.module';
+import { Product, ProductSchema } from '../products/product.schema';
 import { VariantsController } from './variants.controller';
-import { Variants, VariantsSchema } from './variants.schema';
+import { Variant, VariantSchema } from './variant.schema';
 import { VariantsService } from './variants.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: Variants.name, schema: VariantsSchema },
+      { name: Variant.name, schema: VariantSchema },
     ]),
-    MongooseModule.forFeature([{ name: Items.name, schema: ItemsSchema }]),
+    MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],
   controllers: [VariantsController],
   providers: [VariantsService],
