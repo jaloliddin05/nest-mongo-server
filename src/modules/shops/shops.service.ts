@@ -4,16 +4,27 @@ import { Model } from 'mongoose';
 import { Shop, ShopDocument } from './shop.schema';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
+import { Business, BusinessDocument } from '../business/business.schema';
 
 @Injectable()
 export class ShopsService {
   constructor(
-    @InjectModel(Shop?.name)
-    private ShopsModel: Model<ShopDocument>,
-  ) {}
+    @InjectModel(Shop?.name) private ShopsModel: Model<ShopDocument>,
+    @InjectModel(Business?.name) private BusinessModel: Model<BusinessDocument>,
+) {}
 
   async create(createShopDto: CreateShopDto) {
     const createdShops = new this.ShopsModel(createShopDto);
+    return createdShops.save();
+  }
+
+  
+  async createByBussines(createShopDto: CreateShopDto, userId: string) {
+    const Business = await this.BusinessModel.findOne({ owner: userId })
+  
+    const createdShops = new this.ShopsModel(createShopDto);
+    Business.shops.push(createdShops.id)
+    Business.save()
     return createdShops.save();
   }
 

@@ -39,6 +39,13 @@ export class CreateUserDto {
   shop: string;
 
   @ApiProperty({
+    description: `email`,
+    example: 'email@gmail.com',
+  })
+  email: string
+  
+
+  @ApiProperty({
     description: `role`,
     example: 'merchant',
   })

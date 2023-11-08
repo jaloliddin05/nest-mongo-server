@@ -31,13 +31,14 @@ export class SingUpUserDto {
     example: 'dsk_45lldD&',
   })
   password: string;
-
+  email: string
 
   @ApiProperty({
     description: `shop`,
     example: ['shopId','shopId'],
   })
   shop: string;
+
 
 
   @ApiProperty({

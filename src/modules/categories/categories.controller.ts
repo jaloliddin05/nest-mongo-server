@@ -29,7 +29,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Method: Create New categorie' })
   @ApiOkResponse({
-    description: 'The categorie was created successfully',
+    description: 'The category was created successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Post()
@@ -49,9 +49,9 @@ export class CategoriesController {
   }
 
 
-  @ApiOperation({ summary: 'Method: Get  categorie by Id' })
+  @ApiOperation({ summary: 'Method: Get  category by Id' })
   @ApiOkResponse({
-    description: 'The categorie was returned successfully',
+    description: 'The category was returned successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Get(':id')
@@ -61,7 +61,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Method: Update  categorie' })
   @ApiOkResponse({
-    description: 'The categorie was updated successfully',
+    description: 'The category was updated successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Patch(':id')
@@ -74,7 +74,7 @@ export class CategoriesController {
 
   @ApiOperation({ summary: 'Method: Delete  categorie' })
   @ApiOkResponse({
-    description: 'The categorie was deleted successfully',
+    description: 'The category was deleted successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Delete(':id')

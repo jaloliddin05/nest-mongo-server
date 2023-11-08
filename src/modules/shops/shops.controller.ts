@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 
 import { ShopsService } from './shops.service';
@@ -18,6 +20,7 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
+import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 
 @ApiTags('Shops')
 @Controller('shops')
@@ -29,9 +32,10 @@ export class ShopsController {
     description: 'The Shop was created successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @UseGuards(AccessTokenGuard)
   @Post()
-  async create(@Body() createShopDto: CreateShopDto) {
-    return await this.ShopsService.create(createShopDto);
+  async create(@Body() createShopDto: CreateShopDto,@Req() req: Request) {
+    return await this.ShopsService.createByBussines(createShopDto,req['user']['sub']);
   }
 
   @ApiOperation({ summary: 'Method: Get All  Shops' })

@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { ShopsService } from '../shops/shops.service';
 import { Business, BusinessDocument } from './business.schema';
 import { CreateBusinessDto } from './dto/create-business.dto';
-import { UpdateBusinessDto } from './dto/update-business.dto';
 
 @Injectable()
 export class BusinessService {
@@ -24,9 +23,26 @@ export class BusinessService {
   }
 
   findAll() {
-    return this.businessModel.find();
-  }
-
+    return this.businessModel.aggregate([
+      {
+        $lookup: {
+          from: 'role',
+          localField: 'role',
+          foreignField: '_id',
+          as: 'role',
+        },
+      },
+      {
+        $lookup: {
+          from: 'shop',
+          localField: 'shops',
+          foreignField: '_id',
+          as: 'shops',
+        },
+      },
+    ]);
+  } 
+ 
   findOne(id: string) {
     return this.businessModel.findById(id)
   }

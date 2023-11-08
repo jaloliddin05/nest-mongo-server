@@ -8,25 +8,25 @@ export class InfobipService {
   private readonly baseUrl: string;
 
   constructor() {
-    this.apiKey = process.env.INFOBIP_API_KEY ;
+    this.apiKey = process.env.INFOBIP_API_KEY;
     this.baseUrl = process.env.INFOBIP_BASE_URL;
   }
 
-  async sendSMS(phoneNumber: string,messages:string): Promise<any> {
+  async sendSMS(phoneNumber: string, messages: string): Promise<any> {
 
     const data = {
       messages: [
-      {
-      destinations: [
-      {
-      to:phoneNumber
-      }
-      ],
-      from: "Ollio app",
-      text:messages 
-      }
+        {
+          destinations: [
+            {
+              to: phoneNumber
+            }
+          ],
+          from: "Ollio app",
+          text: messages
+        }
       ]
-      }
+    }
 
     const headers = {
       Authorization: `App ${this.apiKey}`,

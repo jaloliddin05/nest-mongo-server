@@ -27,7 +27,6 @@ export class Product {
 
   @Prop({ default: false })
   soldByWeight: boolean;
-  
 
   @Prop({ default: false })
   isComposite: boolean;
@@ -51,7 +50,7 @@ export class Product {
   color: string;
 
   @Prop()
-  image_url: string;
+  imageUrl: string;
 
   @Prop({ required: true })
   option1Name: string;

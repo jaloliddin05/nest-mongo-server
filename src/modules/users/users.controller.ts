@@ -20,6 +20,8 @@ import {
   ApiOperation,
 } from '@nestjs/swagger';
 import { AccessTokenGuard } from 'src/guards/acessToken.guard';
+import { AbilitiesGuard } from 'src/ability/ability.guard';
+import { CheckAbilites, ReadUserAbility } from 'src/ability/ability.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -48,6 +50,9 @@ export class UsersController {
       
   
   @Get()
+  // @UseGuards(AccessTokenGuard)
+  // @UseGuards(AbilitiesGuard)
+  // @CheckAbilites(new ReadUserAbility())
   findAll() {
     return this.usersService.findAll();
   }

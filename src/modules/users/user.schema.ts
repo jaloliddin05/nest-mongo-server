@@ -7,25 +7,25 @@ export type UserDocument = User & Document;
 
 @Schema({ collection: 'users' })
 export class User {
-  @Prop({ maxlength: 64, required: true })
+  @Prop({ minlength:3, maxlength: 64, required: true })
   firstName: string;
 
-  @Prop({ maxlength: 64, required: true })
+  @Prop({ minlength:3,maxlength: 64, required: true })
   lastName: string;
 
   @Prop({ type: Types.ObjectId })
   business: Types.ObjectId;
   
-  @Prop({ maxlength: 192, required: true })
+  @Prop({minlength:3, maxlength: 192, required: true })
   address: string;
 
-  @Prop({ maxlength: 64 })
-  city: string;
+  @Prop({minlength:3, maxlength: 64 })
+  city: string; 
 
-  @Prop({ maxlength: 64 })
+  @Prop({minlength:3, maxlength: 64 })
   region: string;
 
-  @Prop({ nullable: true, maxlength: 100 })
+  @Prop({  maxlength: 100 })
   email: string;
 
   @Prop({ nullable: true, maxlength: 100 })
@@ -37,7 +37,7 @@ export class User {
   @Prop({ unique: true, maxlength: 15, required: true })
   phoneNumber: string;
 
-  @Prop({ type: String, enum: Role, default:Role.MERCHANT })
+  @Prop({ type: String, enum: Role, default:Role.MERCHANT }) 
   role: Role;
 
   
@@ -50,10 +50,10 @@ export class User {
   @Prop({ default: 'defaultavatar.png' })
   photo: string;
 
-  @Prop({ maxlength: 40, required: true })
+  @Prop({minlength:4, maxlength: 40, required: true })
   userQrCode: string;
 
-  @Prop({ maxlength: 255 })
+  @Prop({minlength:3, maxlength: 255 })
   note: string;
 
   @Prop()

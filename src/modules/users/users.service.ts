@@ -52,6 +52,11 @@ export class UsersService {
   async findByPhoneNumber(phoneNumber: string): Promise<UserDocument> {
     return this.userModel.findOne({ phoneNumber }).exec();
   }
+  async findByEmail(email: string): Promise<UserDocument> {
+    return this.userModel.findOne({ email }).exec();
+  }
+
+  
 
   async findByPinCode(PinCode: string): Promise<UserDocument> {
     return this.userModel.findOne({ userQrCode:PinCode }).exec();

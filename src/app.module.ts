@@ -9,7 +9,11 @@ import { VariantsModule } from './modules/variants/variants.module';
 import { ComponentsModule } from './modules/components/components.module';
 import { ShopsModule } from './modules/shops/shops.module';
 import { BusinessModule } from './modules/business/business.module';
-import { RolesModule } from './modules/role/role.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { PermissionsModule } from './modules/permissions/permissions.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AbilitiesGuard } from './ability/ability.guard';
+import { AbilityModule } from './ability/ability.module';
 
 @Module({
   imports: [
@@ -23,7 +27,16 @@ import { RolesModule } from './modules/role/role.module';
     ComponentsModule,
     ShopsModule,
     BusinessModule,
-    RolesModule
+    RolesModule,
+    PermissionsModule,
+    AbilityModule
+  ],
+   
+  providers: [
+    {
+    provide: APP_GUARD,
+    useClass:AbilitiesGuard
+    }
   ],
 })
 export class AppModule {}

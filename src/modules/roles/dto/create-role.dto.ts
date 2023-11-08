@@ -6,5 +6,12 @@ export class CreateRoleDto {
     example: "name",
   })
   name: string;
+
+  
+  @ApiProperty({
+    description: `business`,
+    example: "id",
+  })
+  businessId: string;
  
 }
