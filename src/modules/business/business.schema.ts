@@ -1,7 +1,7 @@
 import { Document, Types } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/enums/pricing_type.enum';
+import { PricingType } from 'src/infra/shared/enums/pricing_type.enum';
 import { Shop } from '../shops/shop.schema';
 import { User } from '../users/user.schema';
 import { Role } from '../roles/role.schema';

@@ -20,7 +20,7 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
-import { AccessTokenGuard } from 'src/guards/acessToken.guard';
+import { AccessTokenGuard } from '../auth/strategies/access-token/acess-token.guard';
 
 @ApiTags('Shops')
 @Controller('shops')

@@ -5,7 +5,7 @@ import { User, UserSchema } from './user.schema';
 import { UsersController } from './users.controller';
 import { Business, BusinessSchema } from '../business/business.schema';
 
-import { AbilityModule } from 'src/ability/ability.module';
+import { AbilityModule } from 'src/modules/auth/ability/ability.module';
 
 
 @Module({

@@ -12,8 +12,9 @@ import { BusinessModule } from './modules/business/business.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
 import { APP_GUARD } from '@nestjs/core';
-import { AbilitiesGuard } from './ability/ability.guard';
-import { AbilityModule } from './ability/ability.module';
+import { AbilitiesGuard } from './modules/auth/ability/ability.guard';
+import { AbilityModule } from './modules/auth/ability/ability.module';
+import { SmsModule } from './modules/sms/sms.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { AbilityModule } from './ability/ability.module';
     BusinessModule,
     RolesModule,
     PermissionsModule,
-    AbilityModule
+    AbilityModule,
+    SmsModule
   ],
    
   providers: [

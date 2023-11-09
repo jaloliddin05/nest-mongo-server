@@ -6,10 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
-
-import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 
 import {
 
