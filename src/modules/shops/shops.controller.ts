@@ -19,6 +19,7 @@ import {
   ApiOkResponse,
   ApiTags,
   ApiOperation,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 
@@ -32,6 +33,7 @@ export class ShopsController {
     description: 'The Shop was created successfully',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Post()
   async create(@Body() createShopDto: CreateShopDto,@Req() req: Request) {

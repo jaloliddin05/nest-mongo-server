@@ -13,6 +13,7 @@ import {
   ApiOkResponse,
   ApiTags,
   ApiOperation,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { PassworgDto } from './dto/password.dto';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
@@ -50,6 +51,7 @@ export class AuthController {
     description: 'for merchant  createing new  employee',
   })
   @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiBearerAuth()
   @UseGuards(AccessTokenGuard)
   @Post('user')
   newUser(@Body() createUserDto: SingUpUserDto,@Req() req: Request) {

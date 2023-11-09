@@ -10,7 +10,6 @@ async function bootstrap() {
     .setDescription('Ollio API description')
     .setVersion('0.2')
     .addBearerAuth()
-    .addCookieAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

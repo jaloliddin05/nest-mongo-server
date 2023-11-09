@@ -7,11 +7,6 @@ import { UpdateBusinessDto } from './dto/update-business.dto';
 export class BusinessController {
   constructor(private readonly businessService: BusinessService) {}
 
-  @Post()
-  create(@Body() createBusinessDto: CreateBusinessDto) {
-    return this.businessService.create(createBusinessDto);
-  }
-  
   @Get()
   findAll() {
     return this.businessService.findAll();

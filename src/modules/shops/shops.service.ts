@@ -5,6 +5,7 @@ import { Shop, ShopDocument } from './shop.schema';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { Business, BusinessDocument } from '../business/business.schema';
+import { User, UserDocument } from '../users/user.schema';
 
 @Injectable()
 export class ShopsService {
@@ -21,7 +22,7 @@ export class ShopsService {
   
   async createByBussines(createShopDto: CreateShopDto, userId: string) {
     const Business = await this.BusinessModel.findOne({ owner: userId })
-  
+    
     const createdShops = new this.ShopsModel(createShopDto);
     Business.shops.push(createdShops.id)
     Business.save()
