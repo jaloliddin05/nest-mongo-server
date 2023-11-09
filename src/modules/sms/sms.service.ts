@@ -1,9 +1,9 @@
-
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
+import { validatePhoneNumber } from 'src/infra/validators';
 
 @Injectable()
-export class InfobipService {
+export class SmsService {
   private readonly apiKey: string;
   private readonly baseUrl: string;
 
@@ -13,25 +13,26 @@ export class InfobipService {
   }
 
   async sendSMS(phoneNumber: string, messages: string): Promise<any> {
-
+    await this.checkPhoneNumber(phoneNumber)
+    
     const data = {
       messages: [
         {
           destinations: [
             {
-              to: phoneNumber
-            }
+              to: phoneNumber,
+            },
           ],
-          from: "Ollio app",
-          text: messages
-        }
-      ]
-    }
+          from: 'Ollio app',
+          text: messages,
+        },
+      ],
+    };
 
     const headers = {
       Authorization: `App ${this.apiKey}`,
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      Accept: 'application/json',
     };
 
     try {
@@ -42,5 +43,11 @@ export class InfobipService {
     }
   }
 
+  async checkPhoneNumber(phoneNumber) {
+    const isValid = validatePhoneNumber(phoneNumber);
 
+    if (!isValid) {
+      throw new BadRequestException('Invalid phone number');
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { PricingType } from 'src/enums/pricing_type.enum';
+import { PricingType } from 'src/infra/shared/enums/pricing_type.enum';
 export type ShopDocument = Shop & Document;
 
 @Schema({ collection: 'shops' })

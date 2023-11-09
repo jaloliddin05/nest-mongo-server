@@ -3,12 +3,10 @@ import { Request } from 'express';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { AccessTokenGuard } from 'src/guards/acessToken.guard';
-import { InfobipService } from './send-sms/send-sms.service';
-import { RefreshTokenGuard } from 'src/guards/refreshToken.guard';
+import { AccessTokenGuard } from './strategies/access-token/acess-token.guard';
+import { RefreshTokenGuard } from './strategies/refresh-token/refresh-token.guard';
 import { SendSmsDto } from './dto/send-sms.dto';
 import {
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiTags,
@@ -17,12 +15,14 @@ import {
 } from '@nestjs/swagger';
 import { PassworgDto } from './dto/password.dto';
 import { SingUpUserDto } from '../users/dto/singup-user.dto';
+import { JwtTokenService } from './jwt.service';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(
     private authService: AuthService,
+    private readonly jwtTokenService:JwtTokenService
   ) { }
 
   @ApiOperation({ summary: 'Method: Signup' })
@@ -77,7 +77,6 @@ export class AuthController {
   @Post('pwdforgot')
   async resetPassword(@Body() sendSmsDto: SendSmsDto) {
     return this.authService.ResetPassword(sendSmsDto.phoneNumber);
-   
   }
 
   
@@ -109,7 +108,7 @@ export class AuthController {
   refreshTokens(@Req() req: Request) {
     const userId = req.user['sub'];
     const refreshToken = req.user['refreshToken'];
-    return this.authService.refreshTokens(userId, refreshToken);
+    return this.jwtTokenService.refreshTokens(userId, refreshToken);
   }
 
   @ApiOperation({ summary: 'Method:Geterate PinCode' })
@@ -119,7 +118,6 @@ export class AuthController {
   @ApiForbiddenResponse({ description: 'not found' })
   @Get('pincode')
   async newPinCode() {
-
     return await this.authService.sendPinCode()
   }
 }

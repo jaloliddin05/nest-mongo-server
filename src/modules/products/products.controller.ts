@@ -9,7 +9,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { AccessTokenGuard } from 'src/guards/acessToken.guard';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';

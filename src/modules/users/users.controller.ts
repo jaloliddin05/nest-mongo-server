@@ -19,9 +19,9 @@ import {
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
-import { AccessTokenGuard } from 'src/guards/acessToken.guard';
-import { AbilitiesGuard } from 'src/ability/ability.guard';
-import { CheckAbilites, ReadUserAbility } from 'src/ability/ability.decorator';
+import { AccessTokenGuard } from '../auth/strategies/access-token/acess-token.guard';
+import { AbilitiesGuard } from 'src/modules/auth/ability/ability.guard';
+import { CheckAbilites, ReadUserAbility } from 'src/modules/auth/ability/ability.decorator';
 
 @ApiTags('Users')
 @Controller('users')
